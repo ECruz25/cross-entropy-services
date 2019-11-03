@@ -1,12 +1,13 @@
-from flask import Flask
+from app.inventory_demand import train
+from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
 import pandas as pd
 import io
 import json
-app = Flask(__name__, static_folder="../../cross-entropy-client/build/static")
+app = Flask(__name__)
 CORS(app)
-from app.inventory_demand import train
+
 
 @app.route("/api/inventory-demand", methods=['POST'])
 def inventory_demand_training():
@@ -14,6 +15,7 @@ def inventory_demand_training():
     df = pd.io.json.json_normalize(content, 'data')
     return train(df)
 
+
 @app.route("/api")
 def hello():
-    return "HELLO"
+    return jsonify({'movies': ["Hola"]})
