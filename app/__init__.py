@@ -1,7 +1,19 @@
 from flask import Flask
-app = Flask(__name__)
-from app.regression import analyze
+from flask import request
+from flask_cors import CORS
+import pandas as pd
+import io
+import json
+app = Flask(__name__, static_folder="../../cross-entropy-client/build/static")
+CORS(app)
+from app.inventory_demand import train
 
-@app.route("/")
+@app.route("/api/inventory-demand", methods=['POST'])
+def inventory_demand_training():
+    content = request.get_json()
+    df = pd.io.json.json_normalize(content, 'data')
+    return train(df)
+
+@app.route("/api")
 def hello():
-    return analyze()
+    return "HELLO"
