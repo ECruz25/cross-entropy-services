@@ -13,13 +13,14 @@ from numpy.random import seed
 seed(1)
 
 
-def train(training_data):
-    lag_size = 90  # 3 months
+def transform_data(training_data, months):
+    lag_size = months * 30
+    training_data['date'] = pd.to_datetime(training_data['date'])
     train_gp = training_data.sort_values('date').groupby(
         ['item', 'store', 'date'], as_index=False)
     train_gp = train_gp.agg({'sales': ['mean']})
     train_gp.columns = ['item', 'store', 'date', 'sales']
-    window = 365  # cuantos dias tengo en mi informacion, cambiarlo a adaptarse a cuanta informacion tenga el cliente
+    window = 120     
     lag = lag_size
     series = series_to_supervised(train_gp.drop(
         'date', axis=1), window=window, lag=lag)
@@ -39,29 +40,12 @@ def train(training_data):
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(
         series, labels.values, test_size=0.4, random_state=0)
-    epochs = 40
-    batch = 256
-    lr = 0.0003
-    adam = optimizers.Adam(lr)
 
     X_train_series = X_train.values.reshape(
         (X_train.shape[0], X_train.shape[1], 1))
     X_valid_series = X_valid.values.reshape(
         (X_valid.shape[0], X_valid.shape[1], 1))
-
-    model_cnn = Sequential()
-    model_cnn.add(Conv1D(filters=64, kernel_size=2, activation='relu', input_shape=(
-        X_train_series.shape[1], X_train_series.shape[2])))
-    model_cnn.add(MaxPooling1D(pool_size=2))
-    model_cnn.add(Flatten())
-    model_cnn.add(Dense(50, activation='relu'))
-    model_cnn.add(Dense(1))
-    model_cnn.compile(loss='mse', optimizer=adam)
-    model_cnn.summary()
-
-    cnn_history = model_cnn.fit(X_train_series, Y_train, validation_data=(
-        X_valid_series, Y_valid), epochs=epochs, verbose=2)
-    return "success"
+    return {'X_train_series': X_train_series, 'Y_train': Y_train, 'X_valid_series': X_valid_series, 'Y_valid': Y_valid}
 
 
 def series_to_supervised(data, window=1, lag=1, dropnan=True):
@@ -78,3 +62,22 @@ def series_to_supervised(data, window=1, lag=1, dropnan=True):
     if dropnan:
         agg.dropna(inplace=True)
     return agg
+
+
+def train_model(X_train_series, X_valid_series, Y_train, Y_valid):
+    epochs = 40
+    lr = 0.0003
+    adam = optimizers.Adam(lr)
+    model_cnn = Sequential()
+    model_cnn.add(Conv1D(filters=64, kernel_size=2, activation='relu', input_shape=(
+        X_train_series.shape[1], X_train_series.shape[2])))
+    model_cnn.add(MaxPooling1D(pool_size=2))
+    model_cnn.add(Flatten())
+    model_cnn.add(Dense(50, activation='relu'))
+    model_cnn.add(Dense(1))
+    model_cnn.compile(loss='mse', optimizer=adam)
+    model_cnn.summary()
+
+    cnn_history = model_cnn.fit(X_train_series, Y_train, validation_data=(
+        X_valid_series, Y_valid), epochs=epochs, verbose=2)
+    return cnn_history
