@@ -24,10 +24,6 @@ CORS(app)
 #     return train_model(df)
 
 
-@app.route("/api")
-def hello():
-    return jsonify({'testing': ["Hola"]})
-
 
 @app.route("/")
 def hello():
