@@ -5,7 +5,7 @@ from flask_cors import CORS
 import pandas as pd
 import io
 import json
-app = Flask(__name__, static_folder="../client/build")
+app = Flask(__name__)
 CORS(app)
 
 
