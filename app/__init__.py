@@ -17,14 +17,13 @@ def inventory_demand_training():
     return transform_data(df, months_to_predict)
 
 
-# @app.route("/api/inventory-demand/model-training", methods=['POST'])
-# def inventory_demand_training():
-#     content = request.get_json()
-#     df = pd.io.json.json_normalize(content, 'data')
-#     return train_model(df)
-
+@app.route("/api/inventory-demand/model-training", methods=['POST'])
+def inventory_demand_training():
+    content = request.get_json()
+    df = pd.io.json.json_normalize(content, 'data')
+    return train_model(df)
 
 
 @app.route("/")
 def hello():
-    return jsonify({'testing': ["Hola"]})
+    return jsonify({'testing': ["Hello from cross-entropy-services"]})
