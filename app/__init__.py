@@ -32,5 +32,3 @@ def hello():
 @app.route("/")
 def hello():
     return jsonify({'testing': ["Hola"]})
-
-app.run(debug=True)
