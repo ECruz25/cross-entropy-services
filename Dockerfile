@@ -1,23 +1,22 @@
-FROM python:3.4
+FROM python:3
 
-RUN mkdir /code
-WORKDIR /code
-ADD requirements.txt /code/
-RUN pip install -r requirements.txt
-ADD . /code/
+LABEL Edwin Cruz "edwincruz255@gmail.com"
 
-# ssh
-ENV SSH_PASSWD "root:Docker!"
-RUN apt-get update \
-        && apt-get install -y --no-install-recommends dialog \
-        && apt-get update \
-	&& apt-get install -y --no-install-recommends openssh-server \
-	&& echo "$SSH_PASSWD" | chpasswd 
+RUN apt-get update -y && \
+    apt-get install -y python3 python-dev python3-dev \
+     build-essential libssl-dev libffi-dev \
+     libxml2-dev libxslt1-dev zlib1g-dev \
+     python-pip unixodbc-dev
 
-COPY sshd_config /etc/ssh/
-COPY init.sh /usr/local/bin/
-	
-RUN chmod u+x /usr/local/bin/init.sh
-EXPOSE 8000 2222
-#CMD ["python", "/code/manage.py", "runserver", "0.0.0.0:8000"]
-ENTRYPOINT ["init.sh"]
+COPY ./requirements.txt /app/requirements.txt
+
+WORKDIR /app
+
+# RUN pip3 install numpy
+RUN pip3 install -r requirements.txt
+
+COPY . /app
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "app.py" ]
