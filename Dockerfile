@@ -6,7 +6,7 @@ RUN apt-get update -y && \
     apt-get install -y python3 python-dev python3-dev \
      build-essential libssl-dev libffi-dev \
      libxml2-dev libxslt1-dev zlib1g-dev \
-     python-pip unixodbc-dev
+     python-pip unixodbc-dev python3-flask
 
 COPY ./requirements.txt /app/requirements.txt
 

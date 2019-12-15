@@ -12,7 +12,6 @@ from keras.layers import Dense, LSTM, RepeatVector, TimeDistributed, Flatten
 from numpy.random import seed
 seed(1)
 
-
 def transform_data(training_data, months):
     lag_size = months * 30
     training_data['date'] = pd.to_datetime(training_data['date'])
@@ -20,7 +19,7 @@ def transform_data(training_data, months):
         ['item', 'store', 'date'], as_index=False)
     train_gp = train_gp.agg({'sales': ['mean']})
     train_gp.columns = ['item', 'store', 'date', 'sales']
-    window = 120     
+    window = 30     
     lag = lag_size
     series = series_to_supervised(train_gp.drop(
         'date', axis=1), window=window, lag=lag)
@@ -47,7 +46,6 @@ def transform_data(training_data, months):
         (X_valid.shape[0], X_valid.shape[1], 1))
     return {'X_train_series': X_train_series, 'Y_train': Y_train, 'X_valid_series': X_valid_series, 'Y_valid': Y_valid}
 
-
 def series_to_supervised(data, window=1, lag=1, dropnan=True):
     cols, names = list(), list()
     for i in range(window, 0, -1):
@@ -63,9 +61,8 @@ def series_to_supervised(data, window=1, lag=1, dropnan=True):
         agg.dropna(inplace=True)
     return agg
 
-
 def train_model(X_train_series, X_valid_series, Y_train, Y_valid):
-    epochs = 40
+    epochs = 1
     lr = 0.0003
     adam = optimizers.Adam(lr)
     model_cnn = Sequential()
@@ -78,6 +75,6 @@ def train_model(X_train_series, X_valid_series, Y_train, Y_valid):
     model_cnn.compile(loss='mse', optimizer=adam)
     model_cnn.summary()
 
-    cnn_history = model_cnn.fit(X_train_series, Y_train, validation_data=(
+    model_cnn.fit(X_train_series, Y_train, validation_data=(
         X_valid_series, Y_valid), epochs=epochs, verbose=2)
-    return cnn_history
+    return model_cnn
