@@ -67,10 +67,6 @@ def inventory_demand_training():
     save_model_to_db(model=trained_model, model_type='Demanda de inventario', user=user_id, model_details=model_details)
     return "SUCCESS", status.HTTP_202_ACCEPTED
 
-@app.route("api/predict", methods=['POST'])
-def predict()
-
-
 @app.route("/api/trained_models/<user_id>", methods=['GET'])
 def get_trained_models(user_id):
     trained_models = load_models_by_user(user_id) 
