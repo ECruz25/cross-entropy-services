@@ -27,4 +27,16 @@ FROM ubuntu
 
 RUN apt-get update -y && \
     apt-get install python3 python3-pip python3-flask \
-    unixodbc-dev 
+    unixodbc-dev libpq-dev
+
+COPY ./requirements.txt /app/requirements.txt
+
+WORKDIR /app
+
+RUN pip3 install -r requirements.txt
+
+COPY . /app
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "app.py" ]
