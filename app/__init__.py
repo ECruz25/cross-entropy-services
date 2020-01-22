@@ -7,8 +7,9 @@ from app.models import User
 from passlib.hash import pbkdf2_sha256
 from flask_cors import CORS
 from app.database import init_db, shutdown_db_session, db_session, save_model_to_db, load_saved_model_from_db, load_models_by_user
-from app.models import User
+from app.models import User, PaymentTransaction
 from passlib.hash import pbkdf2_sha256
+import pyodbc
 import pandas as pd
 import numpy as np
 import io
@@ -23,6 +24,8 @@ class NumpyEncoder(json.JSONEncoder):
             return obj.tolist()
         return json.JSONEncoder.default(self, obj)
 
+
+
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     shutdown_db_session()
@@ -31,6 +34,11 @@ init_db()
 
 def useradd(username, password):
     db_session.add(User(username, pbkdf2_sha256.hash(password)))
+    db_session.commit()
+
+
+def add_transaction(username, payment_id, amount, dollar_amount):
+    db_session.add(PaymentTransaction(username, payment_id, amount, dollar_amount))
     db_session.commit()
 
 @app.route('/api/checkToken', methods=['POST'])
@@ -43,6 +51,15 @@ def create_user():
     content = request.get_json()
     print(content['username'])
     useradd(content['username'], content['password'])
+    return "SUCCESS", status.HTTP_202_ACCEPTED
+
+@app.route("/api/create-transaction", methods=['POST'])
+def create_user():
+    content = request.get_json()
+    add_transaction(content['username'], 
+                    content['paymentId'], 
+                    content['amount'], 
+                    content['dollarAmount'])
     return "SUCCESS", status.HTTP_202_ACCEPTED
     
 @app.route("/api/inventory-demand/data-transformation", methods=['POST'])
@@ -75,6 +92,10 @@ def get_trained_models(user_id):
 @app.route("/api")
 def initial():
     return jsonify({'testing': ["Hello from cross-entropy-services"]})
+
+@app.route("/sql-server")
+def connect():
+    hk_orgatex_connection = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};" "Server=edwin-testing.database.windows.net;" "Database=testing;" "uid=escruz;pwd=Yankees2019")
 
 def authenticate(username, password):
     user = User.query.filter_by(username=username).first()

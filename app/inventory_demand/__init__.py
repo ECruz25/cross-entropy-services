@@ -13,13 +13,13 @@ from numpy.random import seed
 seed(1)
 
 def transform_data(training_data, months):
-    lag_size = months * 30
+    lag_size = 1
     training_data['date'] = pd.to_datetime(training_data['date'])
     train_gp = training_data.sort_values('date').groupby(
         ['item', 'store', 'date'], as_index=False)
     train_gp = train_gp.agg({'sales': ['mean']})
     train_gp.columns = ['item', 'store', 'date', 'sales']
-    window = 30     
+    window = months * 30     
     lag = lag_size
     series = series_to_supervised(train_gp.drop(
         'date', axis=1), window=window, lag=lag)
