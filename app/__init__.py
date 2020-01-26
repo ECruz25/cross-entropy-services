@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask import request
 from flask_jwt import JWT, jwt_required
 from flask_api import status
-from app.inventory_demand import transform_data, train_model
+from app.inventory_demand import transform_data, train_model, load_sample_data
 from app.models import User
 from passlib.hash import pbkdf2_sha256
 from flask_cors import CORS
@@ -32,6 +32,15 @@ def shutdown_session(exception=None):
 
 init_db()
 
+def get_amount_by_user(username):
+    transactions = db_session.query(PaymentTransaction).filter_by(username=username).all()
+    amounts = 0
+    for transaction in transactions:
+        amounts = amounts + int(transaction.amount)
+    
+    return str(amounts)
+
+
 def useradd(username, password):
     db_session.add(User(username, pbkdf2_sha256.hash(password)))
     db_session.commit()
@@ -54,8 +63,9 @@ def create_user():
     return "SUCCESS", status.HTTP_202_ACCEPTED
 
 @app.route("/api/create-transaction", methods=['POST'])
-def create_user():
+def create_transaction():
     content = request.get_json()
+    print(content)
     add_transaction(content['username'], 
                     content['paymentId'], 
                     content['amount'], 
@@ -93,9 +103,14 @@ def get_trained_models(user_id):
 def initial():
     return jsonify({'testing': ["Hello from cross-entropy-services"]})
 
-@app.route("/sql-server")
-def connect():
-    hk_orgatex_connection = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};" "Server=edwin-testing.database.windows.net;" "Database=testing;" "uid=escruz;pwd=Yankees2019")
+@app.route('/api/inventory-demand/result/<result_id>')
+def load(result_id):
+    return json.dumps(load_sample_data(), cls=NumpyEncoder), status.HTTP_200_OK
+
+@app.route('/api/credit-by-user/<username>')
+def get_credit_by_user(username):
+    return get_amount_by_user(username)
+
 
 def authenticate(username, password):
     user = User.query.filter_by(username=username).first()
@@ -105,6 +120,8 @@ def authenticate(username, password):
 def identity(payload):
     user_id = payload['identity']
     return User.query.get(user_id)
+
+
 
 app.config['SECRET_KEY'] = "holaaa"
 jwt = JWT(app, authenticate, identity)

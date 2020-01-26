@@ -19,8 +19,8 @@ def transform_data(training_data, months):
         ['item', 'store', 'date'], as_index=False)
     train_gp = train_gp.agg({'sales': ['mean']})
     train_gp.columns = ['item', 'store', 'date', 'sales']
-    window = months * 30     
-    lag = lag_size
+    window = (training_data['date'].max().date() - training_data['date'].min().date()).days    
+    lag = months * 30
     series = series_to_supervised(train_gp.drop(
         'date', axis=1), window=window, lag=lag)
     last_item = 'item(t-%d)' % window
@@ -78,3 +78,20 @@ def train_model(X_train_series, X_valid_series, Y_train, Y_valid):
     model_cnn.fit(X_train_series, Y_train, validation_data=(
         X_valid_series, Y_valid), epochs=epochs, verbose=2)
     return model_cnn
+
+def load_sample_data():
+    import os 
+    re = pd.read_csv(f'{os.path.dirname(os.path.realpath(__file__))}/go.csv')
+    object1 = {
+        'item': re['Item'].to_json(),
+        'store': re['Store'].to_json(),
+        'amount': re['Amount'].to_json()
+    }
+    items = []
+    for row in re.iterrows():
+        items.append({
+            'item': int(row[1]['Item']),
+            'store': int(row[1]['Store']),
+            'amount': int(row[1]['Amount'])
+        })
+    return items
