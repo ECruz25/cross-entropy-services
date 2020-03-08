@@ -14,13 +14,8 @@ chardet==3.0.4
 Click==7.0
 colorama==0.3.7
 cryptography==2.6.1
-cupshelpers==1.0
 dbus-python==1.2.12
-decorator==4.4.1
-defer==1.0.6
-defusedxml==0.6.0
 entrypoints==0.3
-et-xmlfile==1.0.1
 Flask==1.1.1
 Flask-API==2.0
 Flask-BabelEx==0.9.3
