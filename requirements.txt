@@ -9,6 +9,5 @@ flask_jwt
 flask_api
 flask_cors
 pymongo
-pickle
 sqlalchemy
 keras

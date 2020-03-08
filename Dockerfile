@@ -36,9 +36,6 @@ COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
-RUN pip3 install -r requirements.txt
-RUN pip3 install tensorflow sklearn 
-
 COPY . /app
 
 ENTRYPOINT [ "python3" ]
