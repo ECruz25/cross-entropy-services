@@ -14,7 +14,6 @@ chardet==3.0.4
 Click==7.0
 colorama==0.3.7
 cryptography==2.6.1
-dbus-python==1.2.12
 entrypoints==0.3
 Flask==1.1.1
 Flask-API==2.0
