@@ -27,7 +27,7 @@ FROM ubuntu
 
 RUN apt-get update && \
     apt-get install python3 python3-pip python3-flask \
-    unixodbc-dev libpq-dev -y
+    unixodbc-dev libpq-dev pkg-config -y
 
 COPY ./requirements.txt /app/requirements.txt
 
