@@ -182,4 +182,4 @@ app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 jwt = JWT(app, authenticate, identity)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=4400)
+    app.run(debug=True, host='0.0.0.0', port=5000)
