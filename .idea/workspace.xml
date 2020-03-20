@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="39824d1b-2806-4823-a14a-f42d2eddcefb" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ZK9aFsmF5tzW2jiDrgd8hdJSmQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/bin/flask" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="flask" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="cross-entropy-services" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv/bin" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/bin/flask" />
+      <option name="PARAMETERS" value="run" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39824d1b-2806-4823-a14a-f42d2eddcefb" name="Default Changelist" comment="" />
+      <created>1584576980136</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584576980136</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="162" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584583552476">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state x="162" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583552476" />
+    <state x="403" y="202" width="592" height="397" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584693022099">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state x="403" y="202" width="592" height="397" key="#com.intellij.fileTypes.FileTypeChooser/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584693022099" />
+    <state x="530" y="27" width="375" height="661" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1584583482730">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state x="530" y="27" width="375" height="661" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583482730" />
+    <state x="493" y="146" width="424" height="491" key="FileChooserDialogImpl" timestamp="1584583547071">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state x="1829" y="123" width="424" height="491" key="FileChooserDialogImpl/42.27.1324.741/1366.0.1360.768@1366.0.1360.768" timestamp="1584580294436" />
+    <state x="493" y="146" width="424" height="491" key="FileChooserDialogImpl/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583547071" />
+    <state width="1278" height="180" key="GridCell.Tab.0.bottom" timestamp="1584583562965">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state width="1278" height="180" key="GridCell.Tab.0.bottom/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583562965" />
+    <state width="1278" height="180" key="GridCell.Tab.0.center" timestamp="1584583562965">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state width="1278" height="180" key="GridCell.Tab.0.center/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583562965" />
+    <state width="1278" height="180" key="GridCell.Tab.0.left" timestamp="1584583562965">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state width="1278" height="180" key="GridCell.Tab.0.left/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583562965" />
+    <state width="1278" height="180" key="GridCell.Tab.0.right" timestamp="1584583562965">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state width="1278" height="180" key="GridCell.Tab.0.right/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583562965" />
+    <state x="193" y="31" width="1022" height="737" key="SettingsEditor" timestamp="1584580774600">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state x="1521" y="4" width="1022" height="737" key="SettingsEditor/42.27.1324.741/1366.0.1360.768@1366.0.1360.768" timestamp="1584580261734" />
+    <state x="193" y="31" width="1022" height="737" key="SettingsEditor/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584580774600" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1584583419217">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583419217" />
+    <state x="360" y="225" key="com.intellij.ide.util.TipDialog" timestamp="1584576988167">
+      <screen x="42" y="27" width="1324" height="741" />
+    </state>
+    <state x="360" y="225" key="com.intellij.ide.util.TipDialog/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584576988167" />
+    <state x="1626" y="47" width="943" height="560" key="dock-window-1" timestamp="1584592495533">
+      <screen x="1366" y="0" width="1360" height="768" />
+    </state>
+    <state x="1626" y="47" width="943" height="560" key="dock-window-1/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584592495533" />
+    <state x="1695" y="64" width="672" height="678" key="search.everywhere.popup" timestamp="1584604510142">
+      <screen x="1366" y="0" width="1360" height="768" />
+    </state>
+    <state x="1695" y="64" width="672" height="678" key="search.everywhere.popup/42.27.1324.741/1366.0.1360.768@1366.0.1360.768" timestamp="1584604510142" />
+    <state x="362" y="89" key="search.everywhere.popup/42.27.1324.741/1366.0.1360.768@42.27.1324.741" timestamp="1584583424071" />
+  </component>
+</project>
