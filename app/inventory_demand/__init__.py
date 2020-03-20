@@ -10,51 +10,62 @@ seed(1)
 
 
 def transform_data(training_data, months):
-    lag_size = 1
     training_data['date'] = pd.to_datetime(training_data['date'])
+    window = (training_data['date'].max().date() - training_data['date'].min().date()).days
+    lag_size = months*30
+    print(f'{window} date difference')
+    print('-------------')
     train_gp = training_data.sort_values('date').groupby(
         ['item', 'store', 'date'], as_index=False)
     train_gp = train_gp.agg({'sales': ['mean']})
     train_gp.columns = ['item', 'store', 'date', 'sales']
-    window = (training_data['date'].max().date() - training_data['date'].min().date()).days
-    lag = months * 30
+    lag = lag_size
+    print(f'train_gp: {train_gp}')
     series = series_to_supervised(train_gp.drop(
         'date', axis=1), window=window, lag=lag)
     last_item = 'item(t-%d)' % window
     last_store = 'store(t-%d)' % window
+    print(len(series))
     series = series[(series['store(t)'] == series[last_store])]
     series = series[(series['item(t)'] == series[last_item])]
-    columns_to_drop = [('%s(t+%d)' % (col, lag)) for col in ['item', 'store']]
-    for i in range(window, 0, -1):
-        columns_to_drop += [('%s(t-%d)' % (col, i))
-                            for col in ['item', 'store']]
-    series.drop(columns_to_drop, axis=1, inplace=True)
-    series.drop(['item(t)', 'store(t)'], axis=1, inplace=True)
+    # aca borro columnas
+    # columns_to_drop = [('%s(t+%d)' % (col, lag)) for col in []]
+    # for i in range(window, 0, -1):
+    #     columns_to_drop += [('%s(t-%d)' % (col, i))
+    #                         for col in ['item', 'store']]
+    # series.drop(columns_to_drop, axis=1, inplace=True)
+    # series.drop(['item(t)', 'store(t)'], axis=1, inplace=True)
     labels_col = 'sales(t+%d)' % lag_size
     labels = series[labels_col]
     series = series.drop(labels_col, axis=1)
+    print(len(series), len(labels.values), lag_size)
 
-    x_train, x_valid, y_train, y_valid = train_test_split(
+    X_train, X_valid, Y_train, Y_valid = train_test_split(
         series, labels.values, test_size=0.4, random_state=0)
 
-    X_train_series = x_train.values.reshape(
-        (x_train.shape[0], x_train.shape[1], 1))
-    X_valid_series = x_valid.values.reshape(
-        (x_valid.shape[0], x_valid.shape[1], 1))
-    return {'X_train_series': X_train_series, 'Y_train': y_train, 'X_valid_series': X_valid_series, 'Y_valid': y_valid}
+    X_train_series = X_train.values.reshape(
+        (X_train.shape[0], X_train.shape[1], 1))
+    X_valid_series = X_valid.values.reshape(
+        (X_valid.shape[0], X_valid.shape[1], 1))
+    return {'X_train_series': X_train_series, 'Y_train': Y_train, 'X_valid_series': X_valid_series, 'Y_valid': Y_valid}
 
 
 def series_to_supervised(data, window=1, lag=1, dropnan=True):
     cols, names = list(), list()
+    # Input sequence (t-n, ... t-1)
     for i in range(window, 0, -1):
         cols.append(data.shift(i))
         names += [('%s(t-%d)' % (col, i)) for col in data.columns]
+    # Current timestep (t=0)
     cols.append(data)
     names += [('%s(t)' % (col)) for col in data.columns]
+    # Target timestep (t=lag)
     cols.append(data.shift(-lag))
     names += [('%s(t+%d)' % (col, lag)) for col in data.columns]
+    # Put it all together
     agg = pd.concat(cols, axis=1)
     agg.columns = names
+    # Drop rows with NaN values
     if dropnan:
         agg.dropna(inplace=True)
     return agg
