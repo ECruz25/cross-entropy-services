@@ -182,7 +182,4 @@ app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 jwt = JWT(app, authenticate, identity)
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-print(pbkdf2_sha256.hash("edwin@gmail.com"))
-
+    app.run(host=0.0.0.0)
