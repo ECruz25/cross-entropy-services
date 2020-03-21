@@ -79,6 +79,7 @@ def get_users():
 @app.route("/api/v1/create-user", methods=['POST'])
 def create_user():
     content = request.get_json()
+    print(content)
     add_user(content['email'], content['password'], content['company_id'], content['type'])
     return "SUCCESS", status.HTTP_202_ACCEPTED
 
@@ -137,11 +138,11 @@ def inventory_demand_training():
     df = pd.DataFrame(content['data'])
     months_to_predict = content['monthsToPredict']
     user_id = content['user']
-    transformed_data = transform_data(df, months_to_predict)
+    # transformed_data = transform_data(df, months_to_predict)
     model_details = {'months_to_predict': months_to_predict}
-    trained_model = train_model(transformed_data['X_train_series'], transformed_data['X_valid_series'],
-                                transformed_data['Y_train'], transformed_data['Y_valid'])
-    save_model_to_db(model=trained_model, model_type='Demanda de inventario', user=user_id, model_details=model_details)
+    # trained_model = train_model(transformed_data['X_train_series'], transformed_data['X_valid_series'],
+    #                             transformed_data['Y_train'], transformed_data['Y_valid'])
+    save_model_to_db(model="trained_model", model_type='Demanda de inventario', user=user_id, model_details=model_details)
     return "SUCCESS", status.HTTP_202_ACCEPTED
 
 
