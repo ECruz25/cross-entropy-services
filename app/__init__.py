@@ -38,7 +38,7 @@ def add_user(username, password, company_id, user_type):
     db_session.commit()
 
 
-@app.route('/api/v1/sign-up', methods=['POST'])
+@app.route('/api/v1/sign-up', methods=['GET', 'POST'])
 def sign_up():
     content = request.get_json()
     print(content)
@@ -51,19 +51,19 @@ def sign_up():
 
 
 
-@app.route('/api/v1/checkToken', methods=['POST'])
+@app.route('/api/v1/checkToken', methods=['GET', 'POST'])
 @jwt_required()
 def check_token():
     return "SUCCESS", status.HTTP_202_ACCEPTED
 
 
-@app.route('/api/v1/get-user', methods=['POST'])
+@app.route('/api/v1/get-user', methods=['GET', 'POST'])
 def check_user():
     content = request.get_json()
     user = User.query.filter_by(email=content['email']).first()
     return user.__getitem__(), status.HTTP_202_ACCEPTED
 
-@app.route('/api/v1/get-users', methods=['POST'])
+@app.route('/api/v1/get-users', methods=['GET', 'POST'])
 def get_users():
     content = request.get_json()
     users = User.query.filter_by(company_id=content['id']).all()
@@ -76,7 +76,7 @@ def get_users():
         t = t.append(p, ignore_index=True )
     return t.to_json(orient='records'), status.HTTP_202_ACCEPTED
 
-@app.route("/api/v1/create-user", methods=['POST'])
+@app.route("/api/v1/create-user", methods=['GET', 'POST'])
 def create_user():
     content = request.get_json()
     print(content)
@@ -111,7 +111,7 @@ def add_transaction(username, payment_id, amount, dollar_amount):
 
 
 
-@app.route("/api/v1/create-transaction", methods=['POST'])
+@app.route("/api/v1/create-transaction", methods=['GET', 'POST'])
 def create_transaction():
     content = request.get_json()
     add_transaction(content['username'],
@@ -121,7 +121,7 @@ def create_transaction():
     return "SUCCESS", status.HTTP_200_OK
 
 
-@app.route("/api/v1/inventory-demand/data-transformation", methods=['POST'])
+@app.route("/api/v1/inventory-demand/data-transformation", methods=['GET', 'POST'])
 def inventory_demand_data_transformation():
     content = request.get_json()
     df = pd.io.json.json_normalize(content, 'data')
@@ -131,7 +131,7 @@ def inventory_demand_data_transformation():
     return json.dumps(transformed_data, cls=NumpyEncoder), status.HTTP_200_OK
 
 
-@app.route("/api/v1/inventory-demand/model-training", methods=['POST'])
+@app.route("/api/v1/inventory-demand/model-training", methods=['GET', 'POST'])
 def inventory_demand_training():
     content = request.get_json()
     # df = pd.io.json.json_normalize(content, 'data')
